@@ -22,7 +22,7 @@ export default {
     }],
     external: ['nanoid/non-secure', 'vue', 'vue-property-decorator'],
     plugins: [
-        typescript({ check: false, sourceMap: false }),
+        typescript({ sourceMap: false }),
         vue({ css: true, compileTemplate: true }),
         alias({ entries: [{ find: /^@\/(.+)/, replacement: './$1' }] }),
         commonjs(),

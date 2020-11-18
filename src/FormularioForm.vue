@@ -158,7 +158,9 @@ export default class FormularioForm extends Vue {
                     proxyHasChanges = true
                 }
 
+                // @ts-ignore @todo Interface for FormularioInput
                 if (!shallowEqualObjects(newValue, $input.proxy)) {
+                    // @ts-ignore @todo Interface for FormularioInput
                     $input.context.model = newValue
                 }
             })
@@ -193,8 +195,9 @@ export default class FormularioForm extends Vue {
     }
 
     hasValidationErrors (): Promise<boolean> {
-        return Promise.all(this.registry.reduce((resolvers: Promise<boolean>[], input: FormularioInput) => {
-            resolvers.push(input.runValidation() && input.hasValidationErrors())
+        return Promise.all(this.registry.reduce((resolvers: Promise<boolean>[], $input: FormularioInput) => {
+            // @ts-ignore @todo Interface for FormularioInput
+            resolvers.push($input.runValidation() && $input.hasValidationErrors())
             return resolvers
         }, [])).then(results => results.some(hasErrors => hasErrors))
     }
@@ -202,8 +205,9 @@ export default class FormularioForm extends Vue {
     resetValidation (): void {
         this.localFormErrors = []
         this.localFieldErrors = {}
-        this.registry.forEach((input: FormularioInput) => {
-            input.resetValidation()
+        this.registry.forEach(($input: FormularioInput) => {
+            // @ts-ignore @todo Interface for FormularioInput
+            $input.resetValidation()
         })
     }
 }

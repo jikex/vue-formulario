@@ -74,7 +74,7 @@ export default class FormularioInput extends Vue {
 
     private localErrors: string[] = []
     private violations: Violation[] = []
-    private validationRun: Promise<any> = Promise.resolve()
+    private validationRun: Promise<Violation[]> = Promise.resolve([])
 
     get fullQualifiedName (): string {
         return this.path !== '' ? `${this.path}.${this.name}` : this.name
@@ -191,7 +191,7 @@ export default class FormularioInput extends Vue {
         }
     }
 
-    runValidation (): Promise<void> {
+    runValidation (): Promise<Violation[]> {
         this.validationRun = this.validate().then(violations => {
             const validationChanged = !shallowEqualObjects(violations, this.violations)
             this.violations = violations
